@@ -47,7 +47,7 @@ function onBoardCastReceived(payload){
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        message.content = message.sender + ' joined! id is '+message.id;
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
@@ -83,7 +83,7 @@ function onMessageReceived(payload){
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        message.content = message.sender + ' joined! id is '+message.fromId;
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
@@ -114,12 +114,12 @@ function onMessageReceived(payload){
 }
 function sendMessage(event){
     var messageContent = messageInput.value.trim();
-    var receiveName = receiveInput.value.trim();
+    var receiveId = receiveInput.value.trim();
     if(messageContent && stompClient && receiveInput) {
         var chatMessage={
          sender:username,
          content:messageContent,
-            to:receiveName,
+            toId:receiveId,
          type:'CHAT'
         };
         stompClient.send("/app/chat.sendMessage",{},JSON.stringify(chatMessage));
