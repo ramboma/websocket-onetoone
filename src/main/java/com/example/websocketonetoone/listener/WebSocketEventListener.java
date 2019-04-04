@@ -24,7 +24,7 @@ public class WebSocketEventListener {
     {
         StompHeaderAccessor headerAccessor=StompHeaderAccessor.wrap(event.getMessage());
         String sessionid=headerAccessor.getSessionId();
-        logger.info("Receive a new connect,session id is"+sessionid);
+        logger.info("Receive a new connect,session id is ["+sessionid+"]");
     }
     @EventListener
     public void handlerWebSocketDisConnectListener(SessionDisconnectEvent event)
@@ -34,7 +34,7 @@ public class WebSocketEventListener {
         String sessionid=headerAccessor.getSessionId();
         if(sessionid!=null)
         {
-            logger.info("user disconnect:session id is"+sessionid);
+            logger.info("user disconnect:session id is "+sessionid);
             ChatMessage chatMessage=new ChatMessage();
             chatMessage.setContent(sessionid+" has level");
             chatMessage.setType(ChatMessage.MessageType.LEVEL);
